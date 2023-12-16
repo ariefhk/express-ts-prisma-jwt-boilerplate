@@ -1,10 +1,11 @@
+import "dotenv/config";
 import * as jose from "jose";
 import { JWTPayload } from "jose/dist/types";
 import { ResponseError } from "../error/response-error";
 
-const makeJwt = async (data: JWTPayload, secret: string, expired: string = "") => {
+const makeJwt = async (data: JWTPayload, expired: string = "") => {
     try {
-        const secretEncode: Uint8Array = new TextEncoder().encode(secret);
+        const secretEncode: Uint8Array = new TextEncoder().encode(process.env.SECRET_TOKEN);
         const alg: string = "HS256";
         let jwt;
 
@@ -26,9 +27,9 @@ const makeJwt = async (data: JWTPayload, secret: string, expired: string = "") =
     }
 };
 
-const decodeJwt = async (jwt: string, secret: string) => {
+const decodeJwt = async (jwt: string) => {
     try {
-        const secretEncode: Uint8Array = new TextEncoder().encode(secret);
+        const secretEncode: Uint8Array = new TextEncoder().encode(process.env.SECRET_TOKEN);
         const { payload } = await jose.jwtVerify(jwt, secretEncode);
 
         return payload;

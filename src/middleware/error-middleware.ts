@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "dotenv/config"; //comment this if deploy
 import { ResponseError } from "../error/response-error";
 import { Request, Response, NextFunction } from "express";
 
@@ -26,6 +26,7 @@ const errorMiddleware = (err: any, req: Request, res: Response, next: NextFuncti
             })
             .end();
     } else {
+        // comment this if deploy
         if (process.env.NODE_ENV === "development") {
             console.log(err);
         }
