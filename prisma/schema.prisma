@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id          String        @id @db.Uuid
-  email       String        @db.VarChar(100)
+  email       String        @unique @db.VarChar(100)
   password    String        @db.VarChar(100)
   name        String        @db.VarChar(100)
   token       String?       @db.Text

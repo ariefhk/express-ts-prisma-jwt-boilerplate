@@ -3,6 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import { publicRoute } from "../route/public-route";
 import { errorMiddleware } from "../middleware/error-middleware";
+import { privateRoute } from "../route/private-route";
 
 const web = express();
 web.use(cors());
@@ -11,6 +12,7 @@ web.use(express.json());
 web.use(urlencoded({ extended: true }));
 
 web.use(publicRoute);
+web.use(privateRoute);
 web.use(errorMiddleware);
 
 export { web };
