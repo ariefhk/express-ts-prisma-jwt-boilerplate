@@ -9,3 +9,25 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id          String        @id @db.Uuid
+  email       String        @db.VarChar(100)
+  password    String        @db.VarChar(100)
+  name        String        @db.VarChar(100)
+  token       String?       @db.Text
+  UserHistory UserHistory[]
+
+  @@map("users")
+}
+
+model UserHistory {
+  id        Int      @id @default(autoincrement())
+  token     String?  @db.Text
+  userId    String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  User User @relation(fields: [userId], references: [id])
+
+  @@map("history_users")
+}
